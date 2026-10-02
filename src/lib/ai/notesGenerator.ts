@@ -35,6 +35,27 @@ You MUST output ONLY a valid JSON object adhering strictly to this JSON schema:
 }
 Do not wrap your output in markdown formatting or commentary. Return raw JSON only.`;
 
+function getEnvVar(key: string): string | undefined {
+  try {
+    if (typeof process !== 'undefined' && process.env) {
+      return process.env[key];
+    }
+  } catch {
+    // Ignore in non-Node environments
+  }
+
+  try {
+    const metaEnv = (import.meta as unknown as { env?: Record<string, string> })?.env;
+    if (metaEnv) {
+      return metaEnv[`VITE_${key}`] || metaEnv[key];
+    }
+  } catch {
+    // Ignore if import.meta.env is unavailable
+  }
+
+  return undefined;
+}
+
 /**
  * Generates structured notes from a lecture transcript.
  * Falls back to deterministic seed data with 800ms latency if USE_MOCK_AI is set or API keys are absent.
@@ -42,9 +63,9 @@ Do not wrap your output in markdown formatting or commentary. Return raw JSON on
 export async function generateLectureNotes(input: NoteGenerationInput): Promise<StudyNote> {
   const validatedInput = NoteGenerationInputSchema.parse(input);
 
-  const geminiApiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-  const openaiApiKey = process.env.OPENAI_API_KEY;
-  const forceMock = process.env.USE_MOCK_AI === 'true';
+  const geminiApiKey = getEnvVar('GEMINI_API_KEY') || getEnvVar('GOOGLE_API_KEY');
+  const openaiApiKey = getEnvVar('OPENAI_API_KEY');
+  const forceMock = getEnvVar('USE_MOCK_AI') === 'true';
 
   const shouldUseMock = forceMock || (!geminiApiKey && !openaiApiKey);
 
