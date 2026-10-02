@@ -29,6 +29,15 @@ export interface StudyNote {
   summary: string;
   handwrittenRenderUrl: string | null;
   createdAt: string;
+  actionItems?: string[];
+}
+
+export interface GazeMetrics {
+  yaw: number;
+  pitch: number;
+  faceDetected: boolean;
+  isGazeAway: boolean;
+  isAbsent: boolean;
 }
 
 /**

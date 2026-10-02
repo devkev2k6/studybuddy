@@ -1,0 +1,35 @@
+{
+  "name": "studybuddy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsx test_phase2.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devkev2k6/studybuddy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/devkev2k6/studybuddy/issues"
+  },
+  "homepage": "https://github.com/devkev2k6/studybuddy#readme",
+  "dependencies": {
+    "@google/genai": "^2.26.0",
+    "@mediapipe/tasks-vision": "^1.0.1",
+    "openai": "^7.27.0",
+    "react": "^19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
